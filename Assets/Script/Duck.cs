@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Events;
 
 public class Duck : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Duck : MonoBehaviour
     [SerializeField, Range(0,1)] float jumpHeight = 0.5f;
 
 
+    public UnityEvent<Vector3> OnJumpEnd;
     // Update is called once per frame
     void Update()
     {
@@ -41,8 +43,12 @@ public class Duck : MonoBehaviour
             jumpHeight,
             1,
             moveDuration
-        );
+        ).onComplete = () => BroadCastPositionOnJumpEnd();
         transform.forward = direction;
+    }
+
+    private void BroadCastPositionOnJumpEnd(){
+        OnJumpEnd.Invoke(transform.position);
     }
 
 
