@@ -152,17 +152,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19324539e70a1cc47bce75c216862ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duck: {fileID: 648581744}
   terrainList:
   - {fileID: 4398952383590242842, guid: 45690a643f3f48b458dfb89ae061246a, type: 3}
   - {fileID: 1492908893739656960, guid: 1fed1f8f976ccac45b010e4521ebfe5a, type: 3}
   initialGrassCount: 2
   horizontalSize: 9
   backViewDistance: -4
-  forwardViewDistance: 100
+  forwardViewDistance: 15
   maxTerrain: -4
-  treeProbability: 0.25
   travelDistance: 0
+  OnUpdateTerrainLimit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 648581744}
+        m_TargetAssemblyTypeName: Duck, Assembly-CSharp
+        m_MethodName: UpdateMoveLimit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &616332848
 Transform:
   m_ObjectHideFlags: 0
@@ -176,7 +189,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &648581742
 PrefabInstance:
@@ -187,7 +200,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6126792481224254562, guid: 8c3fb21cf083424438683c59bcaa8a45, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6126792481224254562, guid: 8c3fb21cf083424438683c59bcaa8a45, type: 3}
       propertyPath: m_LocalPosition.x
@@ -254,6 +267,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDuration: 0.1
   jumpHeight: 0.5
+  leftMoveLimit: 0
+  rightMoveLimit: 0
+  backMoveLimit: 0
   OnJumpEnd:
     m_PersistentCalls:
       m_Calls:
@@ -373,7 +389,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1829759575
 GameObject:
@@ -458,7 +474,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 39.733, y: -19.999, z: -1.995}
 --- !u!114 &1829759579
 MonoBehaviour:

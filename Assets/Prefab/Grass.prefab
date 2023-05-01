@@ -47,4 +47,4 @@ MonoBehaviour:
   titlePrefab: {fileID: 6366464831334224611, guid: 2db27b2aeb1c5ca4a85f70bec2db268d, type: 3}
   treePrefabList:
   - {fileID: 4262319296713881605, guid: 5b2d8da7aea4af24399ef13931e7f4a5, type: 3}
-  treeProbability: 0.35
+  treeProbability: 0.2

@@ -7,14 +7,12 @@ public class PlayerManager : MonoBehaviour
 {
     // [SerializeField] Grass grassPrefab;
     // [SerializeField] Road roadPrefab;
-    [SerializeField] Duck duck;
     [SerializeField] List<Terrain> terrainList;
     [SerializeField] int initialGrassCount = 2;
     [SerializeField] int horizontalSize;
     [SerializeField] int backViewDistance = -5;
     [SerializeField] int forwardViewDistance = 15;
     [SerializeField] int maxTerrain = -3;
-    [SerializeField, Range(0, 1)] float treeProbability;
 
     Dictionary<int, Terrain> activeTerrainDict = new Dictionary<int, Terrain>(20);
     [SerializeField] private int travelDistance;
@@ -22,7 +20,7 @@ public class PlayerManager : MonoBehaviour
     public UnityEvent <int,int> OnUpdateTerrainLimit;
     private void Start()
     {
-        //Create initial Grass befor player in start game
+        //Untuk membuat pohon penuh antara backViewDistance sampai initianGrassCount
         for (int zPos = backViewDistance; zPos < initialGrassCount; zPos++)
         {
             var terrain = Instantiate(terrainList[0]);
@@ -37,11 +35,13 @@ public class PlayerManager : MonoBehaviour
 
         }
 
-        //Create initial road after player in start game
+        //Membuat intial grass(terrain kosong tanpa pohon) agar player bisa mencobanya terlebih dahulu
         for (int zPos = initialGrassCount; zPos < forwardViewDistance; zPos++)
         {
             var terrain = SpawnRandomTerrain(zPos);
         }
+        OnUpdateTerrainLimit.Invoke(horizontalSize,travelDistance+backViewDistance);
+
     }
 
     private Terrain SpawnRandomTerrain(int zPos)
