@@ -24,7 +24,7 @@ public class Grass : Terrain
             emptyPosition.Add(i);
         }
 
-        Debug.Log(string.Join(",", emptyPosition));
+        // Debug.Log(string.Join(",", emptyPosition));
 
         for (int i = 0; i < treeCount; i++)
         {

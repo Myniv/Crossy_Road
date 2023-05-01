@@ -44,6 +44,7 @@ public class Duck : MonoBehaviour
             1,
             moveDuration
         ).onComplete = () => BroadCastPositionOnJumpEnd();
+        
         transform.forward = direction;
     }
 

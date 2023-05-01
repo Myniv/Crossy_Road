@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -17,11 +18,10 @@ public class PlayerManager : MonoBehaviour
 
     Dictionary<int, Terrain> activeTerrainDict = new Dictionary<int, Terrain>(20);
     [SerializeField] private int travelDistance;
+
+    public UnityEvent <int,int> OnUpdateTerrainLimit;
     private void Start()
     {
-
-
-
         //Create initial Grass befor player in start game
         for (int zPos = backViewDistance; zPos < initialGrassCount; zPos++)
         {
@@ -41,10 +41,6 @@ public class PlayerManager : MonoBehaviour
         for (int zPos = initialGrassCount; zPos < forwardViewDistance; zPos++)
         {
             var terrain = SpawnRandomTerrain(zPos);
-            terrain.Generate(horizontalSize);
-
-            //zpost = key, terrain =  value
-            activeTerrainDict[zPos] = terrain;
         }
     }
 
@@ -52,21 +48,23 @@ public class PlayerManager : MonoBehaviour
     {
         Terrain terrainCheck = null;
         int randomIndex;
-        Terrain terrain = null;
+        //fungsi dari maxterrain adalah untuk membatasi maksimal terrain yg respon secara bersamaan sesuai dengan datanya
         for (int z = -1; z >= maxTerrain; z--)
         {
             var checkPos = zPos + z;
             if (terrainCheck == null)
             {
+                //Memasukkan data di activeTerrainDict dengan key checkpos kedalam terrainCheck
                 terrainCheck = activeTerrainDict[checkPos];
+                //terrainCheck sudah tidak null lagi
                 continue;
             }
+            //Mengecek tipedata terrainCheck dengan activeTerrainDict dengan key checkPos
             else if (terrainCheck.GetType() != activeTerrainDict[checkPos].GetType())
             {
                 randomIndex = Random.Range(0, terrainList.Count);
-                terrain = Instantiate(terrainList[randomIndex]);
-                terrain.transform.position = new Vector3(0, 0, zPos);
-                return terrain;
+                return SpawnTerrain(terrainList[randomIndex],zPos);
+
             }
             else
             {
@@ -75,6 +73,7 @@ public class PlayerManager : MonoBehaviour
         }
         //mengcopy list sehingga terdapat 2 list dengan isi yang sama
         var candidateTerrain = new List<Terrain>(terrainList);
+        //Menghapus terrain yang sudah dipanggil sebanyak max terrain (pada code sebelumnya), sehingga terrain yang lain (yang belum kespawn) dapat dipanggil
         for (int i = 0; i < candidateTerrain.Count; i++)
         {
             if (terrainCheck.GetType() == candidateTerrain[i].GetType())
@@ -83,24 +82,44 @@ public class PlayerManager : MonoBehaviour
                 break;
             }
         }
-
+        //Memilih secara acak terrain yang tersisa pada candidateTerrain setelah ada yang dihapus
         randomIndex = Random.Range(0, candidateTerrain.Count);
-        terrain = Instantiate(candidateTerrain[randomIndex]);
+
+        return SpawnTerrain(candidateTerrain[randomIndex],zPos);
+    }
+
+    public Terrain SpawnTerrain(Terrain terrain, int zPos){
+        terrain = Instantiate(terrain);
         terrain.transform.position = new Vector3(0, 0, zPos);
+        terrain.Generate(horizontalSize);
+        activeTerrainDict[zPos] = terrain; 
         return terrain;
-
-
     }
 
-    private void Update() {
-        
-    }
 
+    //Mengupdate traveldistance/skor ketika character bergerak maju ke depan
     public void UpdateTravelDistance(Vector3 targetPosition)
     {
-        if(targetPosition.z > travelDistance){
+        if (targetPosition.z > travelDistance)
+        {
             travelDistance = Mathf.CeilToInt(targetPosition.z);
+            UpdateTerrain();
         }
+    }
+
+    //Menambah dan menghapus terrain ketika character maju kedepan
+    public void UpdateTerrain()
+    {
+        //Remove Game Object depend on the last distance
+        var destroyPos = travelDistance - 1 + backViewDistance;
+        Destroy(activeTerrainDict[destroyPos].gameObject);
+        //Remove component
+        activeTerrainDict.Remove(destroyPos);
+
+        //Add/Spawn Terrain
+        SpawnRandomTerrain(travelDistance - 1 + forwardViewDistance);
+    
+        OnUpdateTerrainLimit.Invoke(horizontalSize,travelDistance+backViewDistance);
     }
 
 }
