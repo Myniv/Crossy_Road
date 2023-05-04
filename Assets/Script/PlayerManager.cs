@@ -16,8 +16,11 @@ public class PlayerManager : MonoBehaviour
 
     Dictionary<int, Terrain> activeTerrainDict = new Dictionary<int, Terrain>(20);
     [SerializeField] private int travelDistance;
+    [SerializeField] private int coin;
 
     public UnityEvent <int,int> OnUpdateTerrainLimit;
+    public UnityEvent <int> OnScoreUpdate;
+
     private void Start()
     {
         //Untuk membuat pohon penuh antara backViewDistance sampai initianGrassCount
@@ -104,7 +107,16 @@ public class PlayerManager : MonoBehaviour
         {
             travelDistance = Mathf.CeilToInt(targetPosition.z);
             UpdateTerrain();
+            
         }
+    }
+
+    public void AddCoin(int value=1){
+        this.coin += value;
+    }
+
+    private int GetScore(){
+        return travelDistance + coin*3;
     }
 
     //Menambah dan menghapus terrain ketika character maju kedepan

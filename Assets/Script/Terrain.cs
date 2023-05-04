@@ -5,6 +5,7 @@ using UnityEngine;
 public class Terrain : MonoBehaviour
 {
     [SerializeField] GameObject titlePrefab;
+    protected int horizontalSize;
 
     private void Start()
     {
@@ -13,6 +14,7 @@ public class Terrain : MonoBehaviour
 
     public virtual void Generate(int size)
     {
+        horizontalSize = size;
 
         if (size == 0)
         {

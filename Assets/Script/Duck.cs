@@ -14,9 +14,13 @@ public class Duck : MonoBehaviour
 
 
     public UnityEvent<Vector3> OnJumpEnd;
-    // Update is called once per frame
+
+    bool isDie=false;
     void Update()
     {
+        if(isDie){
+            return;
+        }
         if (DOTween.IsTweening(transform))
         {
             return;
@@ -52,7 +56,10 @@ public class Duck : MonoBehaviour
     public void Move(Vector3 direction)
     {
         var targetPosition = transform.position + direction;
-        if (targetPosition.x < leftMoveLimit || targetPosition.x > rightMoveLimit || targetPosition.z < backMoveLimit || Tree.AllPosition.Contains(targetPosition))
+        if (targetPosition.x < leftMoveLimit
+            || targetPosition.x > rightMoveLimit
+            || targetPosition.z < backMoveLimit
+            || Tree.AllPosition.Contains(targetPosition))
         {
             targetPosition = transform.position;
         }
@@ -80,5 +87,14 @@ public class Duck : MonoBehaviour
         OnJumpEnd.Invoke(transform.position);
     }
 
+    //Ketika bertabrakan dengan collider maka mati
+    private void OnTriggerEnter(Collider other) {
+        if(isDie==true){
+            return;
+        }
+        transform.DOScaleY(0.1f,0.2f);
+        isDie=true;
+    
+    }
 
 }
