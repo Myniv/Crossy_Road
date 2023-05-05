@@ -15,6 +15,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] int forwardViewDistance = 15;
     [SerializeField] int maxTerrain = -3;
     [SerializeField] float probabilityCoin = 0.2f;
+    [SerializeField] float initialTimer = 10; 
 
     Dictionary<int, Terrain> activeTerrainDict = new Dictionary<int, Terrain>(20);
     [SerializeField] private int travelDistance;
@@ -22,6 +23,8 @@ public class PlayerManager : MonoBehaviour
 
     public UnityEvent<int, int> OnUpdateTerrainLimit;
     public UnityEvent<int> OnScoreUpdate;
+    public UnityEvent OnTimesUp;
+    float timer;
 
     private void Start()
     {
@@ -47,6 +50,13 @@ public class PlayerManager : MonoBehaviour
         }
         OnUpdateTerrainLimit.Invoke(horizontalSize, travelDistance + backViewDistance);
 
+        timer = initialTimer;
+    }
+
+    private void Update() {
+        if(timer <= 0){
+            OnTimesUp.Invoke();
+        }
     }
 
     private Terrain SpawnRandomTerrain(int zPos)
@@ -105,13 +115,12 @@ public class PlayerManager : MonoBehaviour
 
     public Coin SpawnCoin(int horizontalSize, int zPos, float probability = 0.2f)
     {
-        probability = probabilityCoin;
         if (probability == 0)
         {
             return null;
         }
         List<Vector3> spawnPosCandidateList = new List<Vector3>();
-        for (int x = -horizontalSize / 2; x < horizontalSize / 2; x++)
+        for (int x = -horizontalSize / 2; x <=horizontalSize / 2; x++)
         {
             //Mengecek apakah di posisis zpos tersebut terdapat tree atau tidak, jika tidak maka coin bisa ditambahkan kedalam terrain 
             var spawnPos = new Vector3(x, 0, zPos);
@@ -123,7 +132,7 @@ public class PlayerManager : MonoBehaviour
 
         //Jika probability lebih besar dari random value, maka coin terspawn didalam terrain tetapi secara acak
         if (probability >= Random.value)
-        {
+        { 
             var index = Random.Range(0, coinList.Count);
             var spawnPosIndex = Random.Range(0, spawnPosCandidateList.Count);
             return Instantiate(coinList[index],
@@ -147,9 +156,9 @@ public class PlayerManager : MonoBehaviour
     //Menambahkan Coin
     public void AddCoin(int value = 1)
     {
-        this.coin += value;
+        this.coin+=value;
+        Debug.Log("COin");
         OnScoreUpdate.Invoke(GetScore());
-
     }
 
     //Menambahkan score sesuai dengan jumlah travel distance dan coin

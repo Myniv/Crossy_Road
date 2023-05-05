@@ -20,7 +20,6 @@ public class Tree : MonoBehaviour
         //     positions.Add(this.transform.position);
         // }
         positionSet.Add(this.transform.position);
-
     }
 
     private void OnDisable() {
