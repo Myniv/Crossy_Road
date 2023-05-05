@@ -8,18 +8,20 @@ public class PlayerManager : MonoBehaviour
     // [SerializeField] Grass grassPrefab;
     // [SerializeField] Road roadPrefab;
     [SerializeField] List<Terrain> terrainList;
+    [SerializeField] List<Coin> coinList;
     [SerializeField] int initialGrassCount = 2;
     [SerializeField] int horizontalSize;
     [SerializeField] int backViewDistance = -5;
     [SerializeField] int forwardViewDistance = 15;
     [SerializeField] int maxTerrain = -3;
+    [SerializeField] float probabilityCoin = 0.2f;
 
     Dictionary<int, Terrain> activeTerrainDict = new Dictionary<int, Terrain>(20);
     [SerializeField] private int travelDistance;
     [SerializeField] private int coin;
 
-    public UnityEvent <int,int> OnUpdateTerrainLimit;
-    public UnityEvent <int> OnScoreUpdate;
+    public UnityEvent<int, int> OnUpdateTerrainLimit;
+    public UnityEvent<int> OnScoreUpdate;
 
     private void Start()
     {
@@ -43,7 +45,7 @@ public class PlayerManager : MonoBehaviour
         {
             var terrain = SpawnRandomTerrain(zPos);
         }
-        OnUpdateTerrainLimit.Invoke(horizontalSize,travelDistance+backViewDistance);
+        OnUpdateTerrainLimit.Invoke(horizontalSize, travelDistance + backViewDistance);
 
     }
 
@@ -66,7 +68,7 @@ public class PlayerManager : MonoBehaviour
             else if (terrainCheck.GetType() != activeTerrainDict[checkPos].GetType())
             {
                 randomIndex = Random.Range(0, terrainList.Count);
-                return SpawnTerrain(terrainList[randomIndex],zPos);
+                return SpawnTerrain(terrainList[randomIndex], zPos);
 
             }
             else
@@ -88,17 +90,48 @@ public class PlayerManager : MonoBehaviour
         //Memilih secara acak terrain yang tersisa pada candidateTerrain setelah ada yang dihapus
         randomIndex = Random.Range(0, candidateTerrain.Count);
 
-        return SpawnTerrain(candidateTerrain[randomIndex],zPos);
+        return SpawnTerrain(candidateTerrain[randomIndex], zPos);
     }
 
-    public Terrain SpawnTerrain(Terrain terrain, int zPos){
+    public Terrain SpawnTerrain(Terrain terrain, int zPos)
+    {
         terrain = Instantiate(terrain);
         terrain.transform.position = new Vector3(0, 0, zPos);
         terrain.Generate(horizontalSize);
-        activeTerrainDict[zPos] = terrain; 
+        activeTerrainDict[zPos] = terrain;
+        SpawnCoin(horizontalSize, zPos);
         return terrain;
     }
 
+    public Coin SpawnCoin(int horizontalSize, int zPos, float probability = 0.2f)
+    {
+        probability = probabilityCoin;
+        if (probability == 0)
+        {
+            return null;
+        }
+        List<Vector3> spawnPosCandidateList = new List<Vector3>();
+        for (int x = -horizontalSize / 2; x < horizontalSize / 2; x++)
+        {
+            //Mengecek apakah di posisis zpos tersebut terdapat tree atau tidak, jika tidak maka coin bisa ditambahkan kedalam terrain 
+            var spawnPos = new Vector3(x, 0, zPos);
+            if (Tree.AllPosition.Contains(spawnPos) == false)
+            {
+                spawnPosCandidateList.Add(spawnPos);
+            }
+        }
+
+        //Jika probability lebih besar dari random value, maka coin terspawn didalam terrain tetapi secara acak
+        if (probability >= Random.value)
+        {
+            var index = Random.Range(0, coinList.Count);
+            var spawnPosIndex = Random.Range(0, spawnPosCandidateList.Count);
+            return Instantiate(coinList[index],
+                               spawnPosCandidateList[spawnPosIndex],
+                               Quaternion.identity);
+        }
+        return null;
+    }
 
     //Mengupdate traveldistance/skor ketika character bergerak maju ke depan
     public void UpdateTravelDistance(Vector3 targetPosition)
@@ -107,16 +140,22 @@ public class PlayerManager : MonoBehaviour
         {
             travelDistance = Mathf.CeilToInt(targetPosition.z);
             UpdateTerrain();
-            
+            OnScoreUpdate.Invoke(GetScore());
         }
     }
 
-    public void AddCoin(int value=1){
+    //Menambahkan Coin
+    public void AddCoin(int value = 1)
+    {
         this.coin += value;
+        OnScoreUpdate.Invoke(GetScore());
+
     }
 
-    private int GetScore(){
-        return travelDistance + coin*3;
+    //Menambahkan score sesuai dengan jumlah travel distance dan coin
+    private int GetScore()
+    {
+        return travelDistance + coin;
     }
 
     //Menambah dan menghapus terrain ketika character maju kedepan
@@ -130,8 +169,8 @@ public class PlayerManager : MonoBehaviour
 
         //Add/Spawn Terrain
         SpawnRandomTerrain(travelDistance - 1 + forwardViewDistance);
-    
-        OnUpdateTerrainLimit.Invoke(horizontalSize,travelDistance+backViewDistance);
+
+        OnUpdateTerrainLimit.Invoke(horizontalSize, travelDistance + backViewDistance);
     }
 
 }

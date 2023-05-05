@@ -53,6 +53,5 @@ public class Grass : Terrain
 
             //set pohon ke posisi yang terpilih
             var tree = Instantiate(prefab, new Vector3(Xpos,0,this.transform.position.z), Quaternion.identity, transform);
-        
     }
 }
