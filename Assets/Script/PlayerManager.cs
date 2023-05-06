@@ -23,9 +23,7 @@ public class PlayerManager : MonoBehaviour
 
     public UnityEvent<int, int> OnUpdateTerrainLimit;
     public UnityEvent<int> OnScoreUpdate;
-    public UnityEvent OnTimesUp;
-    float timer;
-
+    
     private void Start()
     {
         //Untuk membuat pohon penuh antara backViewDistance sampai initianGrassCount
@@ -49,15 +47,9 @@ public class PlayerManager : MonoBehaviour
             var terrain = SpawnRandomTerrain(zPos);
         }
         OnUpdateTerrainLimit.Invoke(horizontalSize, travelDistance + backViewDistance);
-
-        timer = initialTimer;
     }
 
-    private void Update() {
-        if(timer <= 0){
-            OnTimesUp.Invoke();
-        }
-    }
+    
 
     private Terrain SpawnRandomTerrain(int zPos)
     {

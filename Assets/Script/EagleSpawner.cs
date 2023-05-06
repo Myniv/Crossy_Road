@@ -18,10 +18,11 @@ public class EagleSpawner : MonoBehaviour
         if(timer<=0 && eagle.gameObject.activeInHierarchy==false){
             eagle.gameObject.SetActive(true);
             eagle.transform.position = duck.transform.position + new Vector3(0,0,13);
-            duck.SetMoveAble(false);
+            duck.SetNotMoveAble(true);
         }
         timer -= Time.deltaTime;
     }
+    
 
     public void ResetTimer(){
         timer = initialTimer;

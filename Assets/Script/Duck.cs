@@ -17,10 +17,10 @@ public class Duck : MonoBehaviour
     public UnityEvent<int> OnGetCoin;
     public UnityEvent OnDie;
 
-    bool isMoveable = false;
+    bool isNotMoveable = false;
     void Update()
     {
-        if (isMoveable)
+        if (isNotMoveable)
         {
             return;
         }
@@ -50,6 +50,7 @@ public class Duck : MonoBehaviour
 
     public void Move(Vector3 direction){
         var targetPosition = transform.position + direction;
+        
         if (targetPosition.x < leftMoveLimit
             || targetPosition.x > rightMoveLimit
             || targetPosition.z < backMoveLimit
@@ -63,13 +64,13 @@ public class Duck : MonoBehaviour
             jumpHeight,
             1,
             moveDuration
-        ).onComplete = () => BroadCastPositionOnJumpEnd();
+        ).onComplete = BroadCastPositionOnJumpEnd;
         
         transform.forward = direction;
     }
 
-    public void SetMoveAble(bool value){
-        isMoveable = value;
+    public void SetNotMoveAble(bool value){
+        isNotMoveable = value;
     }
 
     public void UpdateMoveLimit(int horizontalSize, int backLimit){
@@ -86,13 +87,13 @@ public class Duck : MonoBehaviour
     {
         if (other.CompareTag("Car"))
         {
-            if (isMoveable == true)
+            if (isNotMoveable == true)
             {
                 return;
             }
-            transform.DOScaleY(0.1f, 0.2f);
+            transform.DOScale(new Vector3(1,0.1f,1), 0.2f);
 
-            isMoveable = true;
+            isNotMoveable = true;
             Invoke("Die",3);
         }
         else if (other.CompareTag("Coin"))
