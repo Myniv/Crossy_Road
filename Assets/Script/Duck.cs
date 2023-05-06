@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class Duck : MonoBehaviour
 {
+    //pp
     [SerializeField, Range(0,1)] float moveDuration = 0.1f;
     [SerializeField, Range(0,1)] float jumpHeight = 0.5f;
 
