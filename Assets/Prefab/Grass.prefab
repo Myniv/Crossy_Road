@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 400af4b62bf440444a2b45fe762dd668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  titlePrefab: {fileID: 6366464831334224611, guid: 2db27b2aeb1c5ca4a85f70bec2db268d, type: 3}
+  titlePrefab: {fileID: 6366464831334224611, guid: f700fc6f8caf9ac4bb77a054ae0d8bf4, type: 3}
   treePrefabList:
-  - {fileID: 4262319296713881605, guid: 5b2d8da7aea4af24399ef13931e7f4a5, type: 3}
+  - {fileID: 4262518238948457209, guid: 9ca00938cf75b6d42b5c34c099a93020, type: 3}
+  - {fileID: 7488571823978122188, guid: b69112a23c0a583469f96c9f16639292, type: 3}
   treeProbability: 0.3

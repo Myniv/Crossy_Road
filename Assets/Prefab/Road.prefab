@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dbf8e1cc71ed9249820cfde7da524c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  titlePrefab: {fileID: 6354246467771655620, guid: 00616d4c0ab308e4f8c96deb21d2bae2, type: 3}
+  titlePrefab: {fileID: 6354246467771655620, guid: 369b40279cfc8a046be1e62018707b60, type: 3}
   carPrefab: {fileID: 130545453682882435, guid: 1b669892bff289c4e9fdfccba7540bf3, type: 3}
   minCarSpawnInterval: 1
   maxCarSpawnInterval: 8
