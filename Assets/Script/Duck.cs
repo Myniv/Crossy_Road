@@ -13,12 +13,18 @@ public class Duck : MonoBehaviour
     [SerializeField] int leftMoveLimit;
     [SerializeField] int rightMoveLimit;
     [SerializeField] int backMoveLimit;
-
+  
+    public UnityEvent OnParticleStart;
     public UnityEvent<Vector3> OnJumpEnd;
     public UnityEvent<int> OnGetCoin;
+    public UnityEvent OnCarCollision;
     public UnityEvent OnDie;
 
     bool isNotMoveable = false;
+    
+    private void Start() {
+        OnParticleStart.Invoke();
+    }
     void Update()
     {
         if (isNotMoveable)
@@ -95,6 +101,7 @@ public class Duck : MonoBehaviour
             transform.DOScale(new Vector3(1,0.1f,1), 0.2f);
 
             isNotMoveable = true;
+            OnCarCollision.Invoke();
             Invoke("Die",3);
         }
         else if (other.CompareTag("Coin"))
