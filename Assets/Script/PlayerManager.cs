@@ -152,7 +152,6 @@ public class PlayerManager : MonoBehaviour
     public void AddCoin(int value = 1)
     {
         this.coin+=value;
-        Debug.Log("COin");
         OnScoreUpdate.Invoke(GetScore());
     }
 
