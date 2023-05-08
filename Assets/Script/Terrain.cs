@@ -7,10 +7,10 @@ public class Terrain : MonoBehaviour
     [SerializeField] GameObject titlePrefab;
     protected int horizontalSize;
 
-    private void Start()
-    {
-        Generate(9);
-    }
+    // private void Start()
+    // {
+    //     Generate(9);
+    // }
 
     public virtual void Generate(int size)
     {
@@ -51,7 +51,7 @@ public class Terrain : MonoBehaviour
 
     private void DarkenObject(GameObject go)
     {
-        var renderers = go.GetComponentsInChildren<MeshRenderer>(includeInactive: true);
+        var renderers = go.GetComponentsInChildren<MeshRenderer>(true);
         foreach (var rend in renderers)
         {
             rend.material.color = rend.material.color * Color.grey;

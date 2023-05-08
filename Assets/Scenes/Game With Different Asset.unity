@@ -1148,7 +1148,7 @@ MonoBehaviour:
   backViewDistance: -4
   forwardViewDistance: 15
   maxTerrain: -4
-  probabilityCoin: 1
+  probabilityCoin: 0.2
   initialTimer: 10
   travelDistance: 0
   coin: 0
