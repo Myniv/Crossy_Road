@@ -48,3 +48,5 @@ MonoBehaviour:
   carPrefab: {fileID: 2034904022101722335, guid: df9ba7851f376bc40b4281df240411c9, type: 3}
   minCarSpawnInterval: 1
   maxCarSpawnInterval: 8
+  weaponPrefab: {fileID: 1440148107151169423, guid: fb1692346c33333429e76d2ad579f09f, type: 3}
+  placeRocketDestroyParticlesGM: {fileID: 2864419999659276634, guid: 464f0bae7facf3846b4a3ca01211bf51, type: 3}

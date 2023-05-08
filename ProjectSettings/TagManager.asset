@@ -7,6 +7,9 @@ TagManager:
   - Car
   - Coin
   - Eagle
+  - Monster
+  - DestroyRocket
+  - PlaceToDestroyRocket
   layers:
   - Default
   - TransparentFX

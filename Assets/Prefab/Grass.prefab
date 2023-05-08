@@ -46,6 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   titlePrefab: {fileID: 6366464831334224611, guid: f700fc6f8caf9ac4bb77a054ae0d8bf4, type: 3}
   treePrefabList:
-  - {fileID: 4262518238948457209, guid: 9ca00938cf75b6d42b5c34c099a93020, type: 3}
-  - {fileID: 7488571823978122188, guid: b69112a23c0a583469f96c9f16639292, type: 3}
+  - {fileID: -5224032958675792283, guid: 9ca00938cf75b6d42b5c34c099a93020, type: 3}
+  - {fileID: 6847960372687927438, guid: b69112a23c0a583469f96c9f16639292, type: 3}
   treeProbability: 0.3

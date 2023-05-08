@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7140388418799880190}
   - component: {fileID: 913200085028881912}
   - component: {fileID: 3340237252304104204}
-  - component: {fileID: -5294081261544126218}
+  - component: {fileID: 6847960372687927438}
   m_Layer: 0
   m_Name: fire_pine_03
   m_TagString: Untagged
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-5294081261544126218
+--- !u!114 &6847960372687927438
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

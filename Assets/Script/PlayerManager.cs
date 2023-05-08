@@ -37,14 +37,15 @@ public class PlayerManager : MonoBehaviour
                 grass.SetTreePercentage(zPos < -1 ? 1 : 0);
             }
             terrain.Generate(horizontalSize);
-            activeTerrainDict[key: zPos] = terrain;
+            activeTerrainDict[zPos] = terrain;
 
         }
 
         //Membuat intial grass(terrain kosong tanpa pohon) agar player bisa mencobanya terlebih dahulu
         for (int zPos = initialGrassCount; zPos < forwardViewDistance; zPos++)
         {
-            var terrain = SpawnRandomTerrain(zPos);
+            // var terrain = SpawnRandomTerrain(zPos);
+            SpawnRandomTerrain(zPos);
         }
         OnUpdateTerrainLimit.Invoke(horizontalSize, travelDistance + backViewDistance);
     }
@@ -107,6 +108,7 @@ public class PlayerManager : MonoBehaviour
 
     public Coin SpawnCoin(int horizontalSize, int zPos, float probability = 0.2f)
     {
+        probability=probabilityCoin;
         if (probability == 0)
         {
             return null;

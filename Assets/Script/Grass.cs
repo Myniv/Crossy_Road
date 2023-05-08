@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class Grass : Terrain
 {
-    [SerializeField] List<GameObject> treePrefabList;
+    [SerializeField] List<Tree> treePrefabList;
     [SerializeField, Range(0,1)] float treeProbability;
 
     public void SetTreePercentage(float newProbability){
         this.treeProbability = Mathf.Clamp01(newProbability);
     }
-
     public override void Generate(int size)
     {
         base.Generate(size);
@@ -24,26 +23,22 @@ public class Grass : Terrain
             emptyPosition.Add(i);
         }
 
-        // Debug.Log(string.Join(",", emptyPosition));
-
         for (int i = 0; i < treeCount; i++)
         {
             //memilih posisi kosong secara random
-            // Debug.Log(string.Join(",", emptyPosition));
             var randomIndex = Random.Range(0,emptyPosition.Count);
             var pos = emptyPosition[randomIndex];
 
             //posisi yang terpilih hapus dari daftar posisi kosong
             emptyPosition.RemoveAt(randomIndex);
 
-            SpawnRandomTree(pos);
-        
-            
+            SpawnRandomTree(pos);            
         }
 
         //selalu pohon diujung
         SpawnRandomTree(-limit -1);
         SpawnRandomTree(limit + 1);
+        Debug.Log("Z="+this.transform.position.z+"|| X="+this.transform.position.x);
     }
 
     private void SpawnRandomTree(int Xpos){
@@ -52,6 +47,14 @@ public class Grass : Terrain
             var prefab = treePrefabList[randomIndex];
 
             //set pohon ke posisi yang terpilih
-            var tree = Instantiate(prefab, new Vector3(Xpos,0,this.transform.position.z), Quaternion.identity, transform);
+            var tree = Instantiate(prefab,
+                                   new Vector3(Xpos,
+                                               0,
+                                               this.transform.position.z),
+                                   Quaternion.identity,
+                                   transform);
+            // var tree = Instantiate(prefab,transform);
+            // tree.transform.localPosition=new Vector3(Xpos,0,0);
+
     }
 }

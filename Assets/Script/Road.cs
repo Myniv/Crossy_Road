@@ -7,6 +7,10 @@ public class Road : Terrain
     [SerializeField] Car carPrefab;
     [SerializeField] float minCarSpawnInterval;
     [SerializeField] float maxCarSpawnInterval;
+    [SerializeField] GameObject weaponPrefab;
+    [SerializeField] GameObject placeRocketDestroyParticlesGM;
+
+    bool checkPosWeaponPrefab = false;
 
     float timer;
     Vector3 carSpawnPosition;
@@ -21,15 +25,38 @@ public class Road : Terrain
                                            0,
                                            this.transform.position.z);
             carRotation = Quaternion.Euler(0, -90, 0);
-
+            var weaponSpawnPosition = Instantiate(weaponPrefab,
+                                     new Vector3(horizontalSize / 2 + 1,
+                                                 0,
+                                                 this.transform.position.z),
+                                     Quaternion.Euler(0, -90, 0),
+                                     transform);
+            var DestroyRocketPosition = Instantiate(placeRocketDestroyParticlesGM,
+                                     new Vector3(-(horizontalSize / 2 + 1),
+                                                 0,
+                                                 this.transform.position.z),
+                                     Quaternion.Euler(0, 90, 0),transform);
+            
         }
         else
         {
             carSpawnPosition = new Vector3(-(horizontalSize / 2 + 1),
                                            0,
                                            this.transform.position.z);
-
             carRotation = Quaternion.Euler(0, 90, 0);
+
+            var weaponSpawnPosition = Instantiate(weaponPrefab,
+                                     new Vector3(-(horizontalSize / 2 + 1),
+                                                 0,
+                                                 this.transform.position.z),
+                                     Quaternion.Euler(0, 90, 0),
+                                     transform);
+            var DestroyRocketPosition = Instantiate(placeRocketDestroyParticlesGM,
+                                     new Vector3(horizontalSize / 2 + 1,
+                                                 0,
+                                                 this.transform.position.z),
+                                     Quaternion.Euler(0, -90, 0),
+                                     transform);
         }
 
     }

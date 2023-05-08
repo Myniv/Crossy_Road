@@ -131,6 +131,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.8
+  OnTouchPlaceToDestroy:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2864419999659276634, guid: 464f0bae7facf3846b4a3ca01211bf51, type: 3}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  OnStart:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!136 &8057238320495198133
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -139,12 +157,12 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8498234941271038051}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.11037954
   m_Height: 0.37938732
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0.0000023129949}
+  m_Center: {x: 0, y: 0.2, z: 0.0000023129949}
 --- !u!1 &8533034881947743356
 GameObject:
   m_ObjectHideFlags: 0
