@@ -38,7 +38,6 @@ public class Grass : Terrain
         //selalu pohon diujung
         SpawnRandomTree(-limit -1);
         SpawnRandomTree(limit + 1);
-        Debug.Log("Z="+this.transform.position.z+"|| X="+this.transform.position.x);
     }
 
     private void SpawnRandomTree(int Xpos){

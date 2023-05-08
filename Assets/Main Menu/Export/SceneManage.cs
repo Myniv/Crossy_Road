@@ -6,7 +6,11 @@ using UnityEngine.SceneManagement;
 public class SceneManage : MonoBehaviour
 {
     public void Play(){
-        SceneManager.LoadScene("Battle");
+        SceneManager.LoadScene("Game With Different Asset");
+    }
+
+    public void MainMenu(){
+        SceneManager.LoadScene("Main Menu");
     }
     
     public void Quit(){
