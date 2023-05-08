@@ -18,35 +18,35 @@ public class PlayCountDown : MonoBehaviour
         tmpText.transform.localScale = Vector3.zero;
         sequence.Append(tmpText.transform.DOScale(
             Vector3.one,
-            1).OnStart(() => { 
+            0.7f).OnStart(() => { 
                 tmpText.transform.localScale = Vector3.zero;
                 tmpText.text = "3"; 
                 }));
 
         sequence.Append(tmpText.transform.DOScale(
             Vector3.one,
-            1).OnStart(() => { 
+            0.7f).OnStart(() => { 
                 tmpText.transform.localScale = Vector3.zero;
                 tmpText.text = "2"; 
                 }));
 
         sequence.Append(tmpText.transform.DOScale(
             Vector3.one,
-            1).OnStart(() => { 
+            0.7f).OnStart(() => { 
                 tmpText.transform.localScale = Vector3.zero;
                 tmpText.text = "1"; 
                 }));
 
         sequence.Append(tmpText.transform.DOScale(
             Vector3.one,
-            1).OnStart(() => { 
+            0.7f).OnStart(() => { 
                 tmpText.transform.localScale = Vector3.zero;
                 tmpText.text = "GO!"; 
                 }));
 
         sequence.Append(tmpText.transform.DOScale(
             Vector3.one,
-            1).OnStart(() => { 
+            0.7f).OnStart(() => { 
                 OnEnd.Invoke(); 
                 }));
     }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Coin : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Coin : MonoBehaviour
     [SerializeField, Range (0,10)] float rotationSpeed = 1;
 
     public int Value { get => value;}
+
 
     //Animasi untuk mengambil Coin
     public void Collected()
@@ -19,11 +21,11 @@ public class Coin : MonoBehaviour
         this.transform.DOJump(this.transform.position,
                               1,
                               1,
-                              0.5f).onComplete=SelfDestruct;
+                              0.3f).onComplete=SelfDestruct;
     }
 
     //Ketika coin telah diambil maka coin tersebut dihapus
-    private void SelfDestruct(){
+    public void SelfDestruct(){
         Destroy(this.gameObject);
     }
 

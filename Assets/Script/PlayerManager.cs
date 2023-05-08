@@ -23,6 +23,7 @@ public class PlayerManager : MonoBehaviour
 
     public UnityEvent<int, int> OnUpdateTerrainLimit;
     public UnityEvent<int> OnScoreUpdate;
+
     
     private void Start()
     {
@@ -127,9 +128,9 @@ public class PlayerManager : MonoBehaviour
         //Jika probability lebih besar dari random value, maka coin terspawn didalam terrain tetapi secara acak
         if (probability >= Random.value)
         { 
-            var index = Random.Range(0, coinList.Count);
+            var indexCoin = Random.Range(0, coinList.Count);
             var spawnPosIndex = Random.Range(0, spawnPosCandidateList.Count);
-            return Instantiate(coinList[index],
+            return Instantiate(coinList[indexCoin],
                                spawnPosCandidateList[spawnPosIndex],
                                Quaternion.identity);
         }
@@ -169,6 +170,7 @@ public class PlayerManager : MonoBehaviour
         Destroy(activeTerrainDict[destroyPos].gameObject);
         //Remove component
         activeTerrainDict.Remove(destroyPos);
+        
 
         //Add/Spawn Terrain
         SpawnRandomTerrain(travelDistance - 1 + forwardViewDistance);

@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class Duck : MonoBehaviour
 {
 
-    [SerializeField, Range(0, 1)] float moveDuration = 0.1f;
+    [SerializeField, Range(0, 1)] float moveDuration = 0.4f;
     [SerializeField, Range(0, 1)] float jumpHeight = 0.5f;
 
     [SerializeField] int leftMoveLimit;
@@ -16,6 +16,7 @@ public class Duck : MonoBehaviour
 
     public UnityEvent OnStart;
     public UnityEvent<Vector3> OnJumpEnd;
+    public UnityEvent OnJump;
     public UnityEvent<int> OnGetCoin;
     public UnityEvent OnCarCollision;
     public UnityEvent OnDie;
@@ -88,7 +89,8 @@ public class Duck : MonoBehaviour
         }
 
 
-
+        //SFX Jump
+        OnJump.Invoke();
         //Animasi Lompat menggunakan DoTween
         transform.DOJump(
                     targetPosition,
